@@ -1,0 +1,88 @@
+<!doctype html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Valorant — something 卡片</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Noto Sans TC', sans-serif;
+      background: radial-gradient(circle at center, #0a1020, #000);
+      color: #fff;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+    }
+
+    .card {
+      background: rgba(255,255,255,0.05);
+      border: 1px solid rgba(255,255,255,0.1);
+      border-radius: 16px;
+      padding: 20px;
+      max-width: 350px;
+      text-align: center;
+      box-shadow: 0 0 20px rgba(255,0,100,0.3);
+      animation: bgMove 6s linear infinite;
+      background-image: url('https://upload.wikimedia.org/wikipedia/en/8/82/Paper_Rex_logo.png');
+      background-repeat: no-repeat;
+      background-position: center top 10px;
+      background-size: 60px;
+    }
+
+    @keyframes bgMove {
+      0% { box-shadow: 0 0 20px rgba(255,0,100,0.3); }
+      50% { box-shadow: 0 0 30px rgba(255,0,150,0.5); }
+      100% { box-shadow: 0 0 20px rgba(255,0,100,0.3); }
+    }
+
+    img {
+      width: 100%;
+      border-radius: 12px;
+      margin-top: 20px;
+    }
+
+    h2 {
+      margin: 15px 0 5px;
+    }
+
+    .info {
+      font-size: 14px;
+      color: #bbb;
+    }
+
+    .weapons {
+      margin: 10px 0;
+      background: rgba(255,255,255,0.08);
+      border-radius: 10px;
+      padding: 10px;
+      font-size: 13px;
+    }
+
+    button {
+      background: #ff0055;
+      border: none;
+      color: white;
+      padding: 8px 16px;
+      border-radius: 8px;
+      margin-top: 10px;
+      cursor: pointer;
+    }
+
+    button:hover {
+      background: #ff3380;
+    }
+  </style>
+</head>
+<body>
+  <div class="card">
+    <img src="some.jpg" alt="something">
+    <h2>something</h2>
+    <p class="info">俄羅斯選手 · PRX 決鬥手</p>
+    <div class="weapons">擅長武器：大狙、暴徒</div>
+    <p>榮譽：2025 多倫多大賽 冠軍</p>
+    <button onclick="alert('something — PRX 的最強決鬥手！')">查看詳情</button>
+  </div>
+</body>
+</html>
