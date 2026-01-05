@@ -1,0 +1,421 @@
+<!doctype html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>PRX 戰隊成員卡片集</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;500;700&display=swap" rel="stylesheet">
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      font-family: 'Noto Sans TC', sans-serif;
+      background: radial-gradient(circle at center, #0a1020, #000);
+      color: #fff;
+      min-height: 100vh;
+      padding: 20px;
+    }
+
+    .header {
+      text-align: center;
+      margin-bottom: 40px;
+      padding-top: 20px;
+    }
+
+    .logo {
+      width: 100px;
+      height: auto;
+      margin-bottom: 15px;
+    }
+
+    h1 {
+      color: #ff0055;
+      margin: 10px 0;
+      font-size: 2.5rem;
+      text-shadow: 0 0 10px rgba(255,0,100,0.5);
+    }
+
+    .subtitle {
+      color: #aaa;
+      font-size: 1.1rem;
+      margin-bottom: 10px;
+    }
+
+    .filter-buttons {
+      display: flex;
+      justify-content: center;
+      gap: 15px;
+      margin: 20px 0 30px;
+      flex-wrap: wrap;
+    }
+
+    .filter-btn {
+      background: rgba(255,255,255,0.1);
+      border: 1px solid rgba(255,255,255,0.2);
+      color: white;
+      padding: 8px 20px;
+      border-radius: 20px;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      font-size: 14px;
+    }
+
+    .filter-btn:hover {
+      background: rgba(255,0,100,0.3);
+    }
+
+    .filter-btn.active {
+      background: #ff0055;
+      border-color: #ff0055;
+    }
+
+    .cards-container {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 30px;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    .card {
+      background: rgba(255,255,255,0.05);
+      border: 1px solid rgba(255,255,255,0.1);
+      border-radius: 16px;
+      padding: 20px;
+      width: 300px;
+      text-align: center;
+      box-shadow: 0 0 20px rgba(255,0,100,0.2);
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .card:hover {
+      transform: translateY(-10px);
+      box-shadow: 0 15px 30px rgba(255,0,100,0.4);
+    }
+
+    .card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 4px;
+      background: linear-gradient(90deg, #ff0055, #ff6600);
+    }
+
+    .player-img {
+      width: 180px;
+      height: 180px;
+      border-radius: 50%;
+      object-fit: cover;
+      object-position: center;
+      border: 3px solid rgba(255,255,255,0.1);
+      margin: 10px auto 20px;
+      display: block;
+      background: linear-gradient(45deg, #333, #555);
+    }
+
+    .player-info-container {
+      margin: 15px 0;
+    }
+
+    .player-ign {
+      color: #ffcc00;
+      font-size: 1.8rem;
+      margin: 5px 0;
+      font-weight: 700;
+      text-shadow: 0 0 5px rgba(255,204,0,0.3);
+    }
+
+    .player-realname {
+      color: #ff6699;
+      font-size: 1.2rem;
+      margin: 5px 0 10px;
+      font-weight: 500;
+    }
+
+    .player-details {
+      font-size: 14px;
+      color: #bbb;
+      margin: 8px 0;
+    }
+
+    .role-badge {
+      display: inline-block;
+      background: rgba(255,0,100,0.2);
+      color: #ff6699;
+      padding: 4px 12px;
+      border-radius: 12px;
+      font-size: 13px;
+      margin: 5px 0 10px;
+      border: 1px solid rgba(255,0,100,0.4);
+    }
+
+    .weapons {
+      margin: 15px 0;
+      background: rgba(255,255,255,0.08);
+      border-radius: 10px;
+      padding: 12px;
+      font-size: 14px;
+      text-align: left;
+    }
+
+    .weapons span {
+      display: inline-block;
+      background: rgba(0,150,255,0.2);
+      color: #66ccff;
+      padding: 3px 10px;
+      border-radius: 8px;
+      margin: 3px 5px 3px 0;
+      font-size: 13px;
+    }
+
+    .achievements {
+      font-size: 13px;
+      color: #aaa;
+      margin: 15px 0;
+      line-height: 1.5;
+      border-top: 1px solid rgba(255,255,255,0.1);
+      padding-top: 12px;
+    }
+
+    .detail-btn {
+      background: linear-gradient(90deg, #ff0055, #ff6600);
+      border: none;
+      color: white;
+      padding: 10px 20px;
+      border-radius: 8px;
+      margin-top: 10px;
+      cursor: pointer;
+      font-weight: 500;
+      width: 100%;
+      transition: opacity 0.3s ease;
+    }
+
+    .detail-btn:hover {
+      opacity: 0.9;
+    }
+
+    .footer {
+      text-align: center;
+      margin-top: 50px;
+      padding: 20px;
+      color: #888;
+      font-size: 14px;
+      border-top: 1px solid rgba(255,255,255,0.1);
+    }
+
+    /* 響應式設計 */
+    @media (max-width: 768px) {
+      .cards-container {
+        gap: 20px;
+      }
+      
+      .card {
+        width: 280px;
+      }
+      
+      h1 {
+        font-size: 2rem;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="header">
+    <h1>Paper Rex 戰隊成員</h1>
+    <p class="subtitle">亞太賽區王者 · 世界頂尖戰隊</p>
+    
+    <div class="filter-buttons">
+      <button class="filter-btn active" onclick="filterCards('all')">全部成員</button>
+      <button class="filter-btn" onclick="filterCards('duelist')">決鬥者</button>
+      <button class="filter-btn" onclick="filterCards('initiator')">先鋒</button>
+      <button class="filter-btn" onclick="filterCards('flex')">全能型</button>
+    </div>
+  </div>
+
+  <div class="cards-container">
+    <!-- something 卡片 -->
+    <div class="card" data-role="duelist">
+      <img src="https://i.ibb.co/Jwv5xFHv/some.jpg" alt="something" class="player-img">
+      <div class="player-info-container">
+        <div class="player-ign">something</div>
+        <div class="player-realname">Ilya Petrov</div>
+        <div class="role-badge">決鬥者</div>
+        <p class="player-details">🇷🇺 俄羅斯選手 · PRX 主力決鬥手</p>
+      </div>
+      <div class="weapons">
+        擅長武器：
+        <span>Operator</span>
+        <span>Vandal</span>
+        <span>Phantom</span>
+      </div>
+      <div class="achievements">
+        <strong>主要成就：</strong><br>
+        • 2025 多倫多大賽 冠軍<br>
+        • 2024 上海大師賽 MVP<br>
+        • 2023 太平洋賽區 冠軍
+      </div>
+      <button class="detail-btn" onclick="showPlayerDetail('something')">查看詳情</button>
+    </div>
+
+    <!-- f0rsakeN 卡片 -->
+    <div class="card" data-role="duelist">
+      <img src="https://i.ibb.co/60Zx8ksr/prx-f.webp" alt="f0rsakeN" class="player-img">
+      <div class="player-info-container">
+        <div class="player-ign">f0rsakeN</div>
+        <div class="player-realname">Jason Susanto</div>
+        <div class="role-badge">決鬥者</div>
+        <p class="player-details">🇮🇩 印尼選手 · PRX 決鬥手</p>
+      </div>
+      <div class="weapons">
+        擅長武器：
+        <span>Vandal</span>
+        <span>Phantom</span>
+        <span>Sheriff</span>
+      </div>
+      <div class="achievements">
+        <strong>主要成就：</strong><br>
+        • 2024 冠軍賽 四強<br>
+        • 2023 東京大師賽 冠軍<br>
+        • 2022 太平洋賽區 MVP
+      </div>
+      <button class="detail-btn" onclick="showPlayerDetail('f0rsakeN')">查看詳情</button>
+    </div>
+
+    <!-- d4v41 卡片 -->
+    <div class="card" data-role="initiator">
+      <img src="https://i.ibb.co/F4SR2vqS/Valorant-d4v41-Paper-Rex-Champions-Upper-Bracket-Semis.jpg" alt="d4v41" class="player-img">
+      <div class="player-info-container">
+        <div class="player-ign">d4v41</div>
+        <div class="player-realname">Khalish Rusyaidee</div>
+        <div class="role-badge">先鋒</div>
+        <p class="player-details">🇸🇬 新加坡選手 · PRX 先鋒</p>
+      </div>
+      <div class="weapons">
+        擅長武器：
+        <span>Phantom</span>
+        <span>Spectre</span>
+        <span>Classic</span>
+      </div>
+      <div class="achievements">
+        <strong>主要成就：</strong><br>
+        • 2024 馬德里大師賽 亞軍<br>
+        • 2023 太平洋賽區 冠軍<br>
+        • 2022 最佳先鋒選手
+      </div>
+      <button class="detail-btn" onclick="showPlayerDetail('d4v41')">查看詳情</button>
+    </div>
+
+    <!-- patman 卡片 -->
+    <div class="card" data-role="flex">
+      <img src="https://i.ibb.co/35cJ6JgG/Pat-Men-1.png" alt="patman" class="player-img">
+      <div class="player-info-container">
+        <div class="player-ign">patman</div>
+        <div class="player-realname">Patiphan Chaiwong</div>
+        <div class="role-badge">全能型選手</div>
+        <p class="player-details">🇹🇭 泰國選手 · PRX 第六人</p>
+      </div>
+      <div class="weapons">
+        擅長武器：
+        <span>Operator</span>
+        <span>Vandal</span>
+        <span>Phantom</span>
+      </div>
+      <div class="achievements">
+        <strong>主要成就：</strong><br>
+        • 2024 太平洋賽區 冠軍<br>
+        • 泰國明星選手<br>
+        • 多位置精通
+      </div>
+      <button class="detail-btn" onclick="showPlayerDetail('patman')">查看詳情</button>
+    </div>
+
+    <!-- Jinggg 卡片 -->
+    <div class="card" data-role="duelist">
+      <img src="https://i.ibb.co/8grjSwVz/prx-j.webp" alt="Jinggg" class="player-img">
+      <div class="player-info-container">
+        <div class="player-ign">Jinggg</div>
+        <div class="player-realname">Wang Jing Jie</div>
+        <div class="role-badge">決鬥者</div>
+        <p class="player-details">🇸🇬 新加坡選手 · PRX 現役隊員</p>
+      </div>
+      <div class="weapons">
+        擅長武器：
+        <span>Vandal</span>
+        <span>Classic</span>
+        <span>Shorty</span>
+      </div>
+      <div class="achievements">
+        <strong>主要成就：</strong><br>
+        • 2023 東京大師賽 冠軍<br>
+        • 2022 冠軍賽 亞軍<br>
+        • 2022 太平洋賽區 MVP
+      </div>
+      <button class="detail-btn" onclick="showPlayerDetail('Jinggg')">查看詳情</button>
+    </div>
+  </div>
+
+  <div class="footer">
+    <p>© 2025 PRX 戰隊成員介紹 | 本頁面僅為練習作品，非官方網站</p>
+    <p>圖片來源: 選手提供 | 僅供學習使用</p>
+  </div>
+
+  <script>
+    // 過濾卡片功能
+    function filterCards(role) {
+      const cards = document.querySelectorAll('.card');
+      const buttons = document.querySelectorAll('.filter-btn');
+      
+      // 更新按鈕狀態
+      buttons.forEach(btn => {
+        btn.classList.remove('active');
+        if (btn.textContent.includes(role === 'all' ? '全部' : 
+            role === 'duelist' ? '決鬥' :
+            role === 'initiator' ? '先鋒' : '全能')) {
+          btn.classList.add('active');
+        }
+      });
+      
+      // 顯示/隱藏卡片
+      cards.forEach(card => {
+        if (role === 'all') {
+          card.style.display = 'block';
+        } else {
+          if (card.getAttribute('data-role') === role) {
+            card.style.display = 'block';
+          } else {
+            card.style.display = 'none';
+          }
+        }
+      });
+    }
+
+    // 顯示選手詳情
+    function showPlayerDetail(player) {
+      const playerData = {
+        'something': 'Ilya "something" Petrov：PRX 俄羅斯籍明星選手，以其精準的狙擊和激進的決鬥風格聞名，多次在國際賽事中獲得 MVP。',
+        'f0rsakeN': 'Jason "f0rsakeN" Susanto：來自印尼的年輕天才，擅長多種決鬥角，以其靈活的遊戲風格和關鍵擊殺能力著稱。',
+        'd4v41': 'Khalish "d4v41" Rusyaidee：新加坡籍先鋒選手，以其出色的資訊收集能力和團隊配合聞名，是 PRX 戰術執行的關鍵。',
+        'patman': 'Patiphan "patman" Chaiwong：泰國選手，PRX 第六人，以全能型打法聞名，能適應多個位置，關鍵時刻總能發揮重要作用。',
+        'Jinggg': 'Wang "Jinggg" Jing Jie：PRX 現役明星選手，以其極具侵略性的 Raze 操作聞名，是世界頂尖的 Raze 玩家之一。'
+      };
+      
+      alert(`${playerData[player]}\n\n點擊確定後可繼續瀏覽其他選手。`);
+    }
+
+    // 初始載入時顯示全部
+    window.onload = function() {
+      filterCards('all');
+    }
+  </script>
+</body>
+</html>
